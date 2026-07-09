@@ -5,6 +5,7 @@ import json
 import uuid
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 from fastapi import APIRouter, Depends, File, Form, UploadFile
 from sqlalchemy import select
@@ -50,8 +51,8 @@ async def create_event(
 @router.get("/events")
 def list_events(
     limit: int = 50,
-    unknown: bool | None = None,
-    person: int | None = None,
+    unknown: Optional[bool] = None,
+    person: Optional[int] = None,
     db: Session = Depends(get_db),
 ):
     q = select(CoughEvent).order_by(CoughEvent.received_at.desc()).limit(limit)
