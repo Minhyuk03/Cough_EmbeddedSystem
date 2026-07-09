@@ -1,0 +1,5 @@
+sounddevice
+numpy
+requests
+# 2차 CNN 판정 단계(P4 후반)에서 추가:
+# tflite-runtime

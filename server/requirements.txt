@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+python-multipart
+# P3 식별 모듈에서 추가:
+# speechbrain
+# torchaudio

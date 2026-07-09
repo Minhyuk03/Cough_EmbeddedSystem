@@ -4,3 +4,5 @@ node_modules/
 *.db
 .env
 .DS_Store
+edge/queue/
+server/audio_store/
