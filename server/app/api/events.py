@@ -15,13 +15,19 @@ from ..db import get_db
 from ..ml.identifier import identifier
 from ..models import CoughEvent
 
-router = APIRouter(tags=["events"])
+router = APIRouter(tags=["기침 이벤트"])
 
 AUDIO_DIR = Path("audio_store")
 AUDIO_DIR.mkdir(exist_ok=True)
 
 
-@router.post("/events", status_code=201)
+@router.post(
+    "/events",
+    status_code=201,
+    summary="기침 이벤트 수신",
+    description="엣지 디바이스가 검출한 기침 오디오(WAV)와 메타데이터를 업로드한다. "
+    "서버는 오디오를 저장하고 화자 식별을 수행한다(현재는 스텁 — 항상 unknown).",
+)
 async def create_event(
     audio: UploadFile = File(...),
     meta: str = Form(...),
@@ -48,7 +54,11 @@ async def create_event(
     return {"id": event.id, "person_id": event.person_id, "similarity": event.similarity}
 
 
-@router.get("/events")
+@router.get(
+    "/events",
+    summary="기침 이벤트 이력 조회",
+    description="최근 이벤트를 조회한다. unknown=true(미등록 화자만), person=화자ID, limit=개수 필터 지원.",
+)
 def list_events(
     limit: int = 50,
     unknown: Optional[bool] = None,
