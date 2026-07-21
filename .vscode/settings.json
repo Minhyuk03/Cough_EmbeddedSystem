@@ -1,0 +1,33 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/server/.venv/bin/python",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/server",
+    "${workspaceFolder}/edge"
+  ],
+  "python.terminal.activateEnvironment": true,
+  "editor.rulers": [100],
+  "files.watcherExclude": {
+    "**/.venv/**": true,
+    "**/node_modules/**": true,
+    "**/__pycache__/**": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "terminal.integrated.env.osx": {
+    "PATH": "/opt/homebrew/bin:${env:PATH}"
+  }
+}

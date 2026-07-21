@@ -1,0 +1,77 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Setup: server",
+      "type": "shell",
+      "command": "test -x server/.venv/bin/python || /opt/homebrew/bin/python3.11 -m venv server/.venv; server/.venv/bin/python -m pip install -r server/requirements.txt",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: edge",
+      "type": "shell",
+      "command": "test -x edge/.venv/bin/python || /opt/homebrew/bin/python3.11 -m venv edge/.venv; edge/.venv/bin/python -m pip install -r edge/requirements.txt",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: dashboard",
+      "type": "shell",
+      "command": "npm ci",
+      "options": { "cwd": "${workspaceFolder}/dashboard" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup: all",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Setup: server", "Setup: edge", "Setup: dashboard"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Server: dev",
+      "type": "shell",
+      "command": "${workspaceFolder}/server/.venv/bin/python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+      "options": { "cwd": "${workspaceFolder}/server" },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "python",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Uvicorn running|Started reloader process",
+          "endsPattern": "Application startup complete"
+        }
+      }
+    },
+    {
+      "label": "Dashboard: dev",
+      "type": "npm",
+      "script": "dev",
+      "path": "dashboard",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "VITE",
+          "endsPattern": "Local:.*http"
+        }
+      }
+    },
+    {
+      "label": "Edge: test WAV",
+      "type": "shell",
+      "command": "${workspaceFolder}/edge/.venv/bin/python main.py --server http://127.0.0.1:8000 --wav test_cough.wav",
+      "options": { "cwd": "${workspaceFolder}/edge" },
+      "problemMatcher": []
+    }
+  ]
+}

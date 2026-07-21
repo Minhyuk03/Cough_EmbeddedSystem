@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "openai.chatgpt",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "charliermarsh.ruff",
+    "oxc.oxc-vscode",
+    "esbenp.prettier-vscode",
+    "github.vscode-pull-request-github",
+    "github.vscode-github-actions",
+    "ms-vscode-remote.remote-ssh"
+  ]
+}
